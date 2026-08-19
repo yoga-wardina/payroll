@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slip Gaji — CV Berkah Manufaktur</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Manufacturing — Muted Industrial */
+    :root {
+      --ink: #1a1a1a;
+      --ink-light: #2c2c2c;
+      --ink-muted: #555;
+      --border-dark: #1a1a1a;
+      --border-mid: #888;
+      --border-light: #bbb;
+      --bg: #f0f0ee;
+      --paper: #fafaf6;
+      --blue: #8a4a2a;
+      --green: #4a6b3f;
+      --green-light: #f1f4ed;
+      --red: #8a3a3a;
+      --red-light: #f5ecec;
+    }
+
+    body {
+      font-family: 'Trebuchet MS', 'Lucida Sans', 'Segoe UI', sans-serif;
+      background: #edeae2;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 39px, #d8d4ca 39px, #d8d4ca 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, #d8d4ca 39px, #d8d4ca 40px);
+    }
+
+    .slip {
+      border: 3px solid #1a1a1a;
+      border-radius: 0;
+      box-shadow: 4px 4px 0 rgba(0,0,0,0.1);
+    }
+    .slip::before {
+      border: 1px solid #888;
+      top: 5px; left: 5px; right: 5px; bottom: 5px;
+    }
+
+    .slip-header {
+      background: #2c2c2c;
+      color: #fff;
+      padding: 24px 40px 18px;
+      border-bottom: 3px solid #000;
+    }
+    .company-crest { font-size: 2.5rem; }
+    .company-name { color: #fff; font-size: 1.5rem; font-weight: 900; letter-spacing: 0; }
+    .company-addr { color: #cfcfcf; font-size: 0.75rem; }
+    .divider::before, .divider::after { background: rgba(255,255,255,0.3); height: 2px; }
+    .divider .diamond { background: #cfcfcf; width: 10px; height: 10px; }
+    .doc-title { color: #fff; border-color: #cfcfcf; font-size: 1.2rem; letter-spacing: 3px; }
+    .doc-ref { color: #cfcfcf; }
+
+    .period-bar {
+      background: #2c2c2c;
+      font-size: 1rem;
+      letter-spacing: 3px;
+      padding: 12px 24px;
+    }
+
+    .section-heading {
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      font-weight: 900;
+    }
+    .section-heading.benefits { color: #4a6b3f; border-bottom: 3px solid #4a6b3f; }
+    .section-heading.benefits .badge { background: #4a6b3f; width: 24px; height: 24px; line-height: 24px; }
+    .section-heading.penalties { color: #8a3a3a; border-bottom: 3px solid #8a3a3a; }
+    .section-heading.penalties .badge { background: #8a3a3a; width: 24px; height: 24px; line-height: 24px; }
+
+    .data-table {
+      border: 2px solid #888;
+    }
+    .data-table thead th {
+      background: #2c2c2c;
+      color: #f0f0ee;
+      font-size: 0.75rem;
+      letter-spacing: 1.5px;
+      padding: 9px 8px;
+      border-color: #555;
+    }
+    .data-table tbody td {
+      border-color: #ccc;
+      font-size: 0.9rem;
+    }
+    .data-table tbody tr:nth-child(even) td { background: #f5f4ef; }
+    .data-table .subtotal-row td { background: #ebe9e3 !important; font-size: 0.95rem; }
+    .data-table.benefits-table .subtotal-row td:last-child { color: #4a6b3f; }
+    .data-table.penalties-table .subtotal-row td:last-child { color: #8a3a3a; }
+    .data-table.benefits-table tbody td:last-child { color: #4a6b3f; }
+    .data-table.penalties-table tbody td:last-child { color: #8a3a3a; }
+
+    .grand-summary {
+      border: 3px solid #1a1a1a;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.08);
+    }
+    .grand-summary td { border-color: #888; }
+    .grand-summary .row-income .value-col { color: #4a6b3f; }
+    .grand-summary .row-deduction .value-col { color: #8a3a3a; }
+    .grand-summary .row-net td {
+      background: #2c2c2c !important;
+      font-size: 1.05rem;
+    }
+
+    .amount-words { border-color: #888; background: #f5f4ef; }
+
+    .sig-block .sig-line { border-color: #1a1a1a; border-width: 2px; }
+    .stamp-area { border-color: #888; }
+    .tear-line { border-top-width: 3px; border-color: #888; }
+    .receipt-copy { font-size: 0.8rem; }
+
+    .back-link:hover { color: #1a1a1a; }
+    .print-btn { background: #2c2c2c; border-radius: 0; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; font-size: 0.78rem; }
+    .print-btn:hover { background: #1a1a1a; }
+
+    /* === Boxed Grid Layout (Manufaktur) === */
+    .employee-info {
+      background: #fafaf6;
+      padding: 18px 24px;
+      border: 3px solid #1a1a1a;
+      margin: 0;
+    }
+    .info-table {
+      width: 100%;
+      table-layout: fixed;
+    }
+    .info-table td.label {
+      width: 18%;
+      background: #ebe9e3;
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      font-size: 0.75rem;
+    }
+    .info-table td.colon { display: none; }
+    .info-table td.value {
+      width: 32%;
+      background: #fafaf6;
+      padding: 6px 10px;
+      border: 1px solid #ccc;
+      font-weight: 700;
+    }
+    .period-bar {
+      margin: 0;
+    }
+    .dual-panels {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      padding: 18px 24px;
+    }
+    .panel-box {
+      border: 3px solid #1a1a1a;
+      background: #fafaf6;
+      box-shadow: 3px 3px 0 rgba(0,0,0,0.08);
+      padding: 0;
+    }
+    .panel-box.benefits-panel { border-color: #4a6b3f; box-shadow: 3px 3px 0 #888; }
+    .panel-box.penalties-panel { border-color: #8a3a3a; box-shadow: 3px 3px 0 #888; }
+    .panel-box .panel-title {
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .panel-box.benefits-panel .panel-title { background: #4a6b3f; }
+    .panel-box.penalties-panel .panel-title { background: #8a3a3a; }
+    .panel-box .panel-total {
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      font-weight: 900;
+      border-top: 3px solid;
+      display: flex;
+      justify-content: space-between;
+    }
+    .panel-box.benefits-panel .panel-total { border-color: #4a6b3f; background: #f1f4ed; color: #4a6b3f; }
+    .panel-box.penalties-panel .panel-total { border-color: #8a3a3a; background: #f5ecec; color: #8a3a3a; }
+    .panel-box .data-table {
+      border: none;
+      width: 100%;
+    }
+    .panel-box .data-table thead th {
+      background: #2c2c2c;
+      color: #f0f0ee;
+      border-color: #555;
+      font-size: 0.7rem;
+      padding: 7px 6px;
+    }
+    .panel-box.benefits-panel .data-table thead th { background: #4a6b3f; color: #f0f0ee; border-color: #2f4a26; }
+    .panel-box.penalties-panel .data-table thead th { background: #8a3a3a; color: #f0f0ee; border-color: #5a2424; }
+    .panel-box .data-table tbody td {
+      border-color: #ccc;
+      padding: 5px 6px;
+      font-size: 0.82rem;
+    }
+    .panel-box .data-table tbody tr:nth-child(even) td { background: #f5f4ef; }
+    .panel-box .data-table .col-note { font-size: 0.72rem; color: #555; }
+    .panel-box.benefits-panel .data-table tbody td:last-child { color: #4a6b3f; font-weight: 700; }
+    .panel-box.penalties-panel .data-table tbody td:last-child { color: #8a3a3a; font-weight: 700; }
+    .panel-box .data-table .subtotal-row { display: none; }
+    .summary-strip {
+      margin: 0 24px 18px;
+      border: 3px solid #1a1a1a;
+      background: #fafaf6;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+    }
+    .summary-strip > div {
+      padding: 12px 16px;
+      border-right: 2px solid #888;
+      text-align: center;
+    }
+    .summary-strip > div:last-child { border-right: none; }
+    .summary-strip .s-label {
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: #555;
+      font-weight: 700;
+    }
+    .summary-strip .s-value {
+      font-size: 1.05rem;
+      font-weight: 900;
+      margin-top: 4px;
+    }
+    .summary-strip .s-income .s-value { color: #4a6b3f; }
+    .summary-strip .s-deduction .s-value { color: #8a3a3a; }
+    .summary-strip .s-net {
+      background: #2c2c2c;
+    }
+    .summary-strip .s-net .s-label { color: #cfcfcf; }
+    .summary-strip .s-net .s-value { color: #fff; font-size: 1.15rem; }
+    .amount-words, .slip-footer {
+      margin: 0 24px 16px;
+    }
+    .legal-footer { margin: 0; padding: 10px 24px; }
+    .receipt-copy { margin: 0 24px 16px; }
+    @media (max-width: 720px) {
+      .dual-panels { grid-template-columns: 1fr; }
+      .summary-strip { grid-template-columns: 1fr; }
+      .summary-strip > div { border-right: none; border-bottom: 2px solid #d7ccc8; }
+      .summary-strip > div:last-child { border-bottom: none; }
+    }
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 12mm;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <div style="margin-bottom: 16px;">
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Kembali ke Koleksi
+    </a>
+    <button class="print-btn" onclick="window.print()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Cetak Slip
+    </button>
+  </div>
+
+  <div class="slip">
+
+    <!-- ===== HEADER ===== -->
+    <div class="slip-header">
+      <div class="company-crest">🏭</div>
+      <div class="company-name">CV Berkah Manufaktur</div>
+      <div class="company-addr">
+        Kawasan Industri MM2100 Blok F-12, Cikarang Barat, Bekasi 17530<br>
+        Telp: (021) 8990-5500 · Email: hrd@berkahmanufaktur.co.id · NPWP: 02.345.678.9-013.000
+      </div>
+      <div class="divider"><span class="diamond"></span></div>
+      <div class="doc-title">Slip Gaji Karyawan</div>
+      <div class="doc-ref">No. Dokumen: SG/BMF/2026/VII/00891</div>
+    </div>
+
+    <!-- ===== EMPLOYEE INFO ===== -->
+    <div class="employee-info">
+      <table class="info-table">
+        <tr>
+          <td class="label">Nama Lengkap</td><td class="colon">:</td>
+          <td class="value">Budi Santoso</td>
+          <td class="label">NIP</td><td class="colon">:</td>
+          <td class="value">BMF-2022-00891</td>
+        </tr>
+        <tr>
+          <td class="label">Jabatan</td><td class="colon">:</td>
+          <td class="value">Operator Produksi Senior</td>
+          <td class="label">Departemen</td><td class="colon">:</td>
+          <td class="value">Produksi Line A</td>
+        </tr>
+        <tr>
+          <td class="label">Status Kepegawaian</td><td class="colon">:</td>
+          <td class="value">Tetap (PKWTT)</td>
+          <td class="label">Golongan</td><td class="colon">:</td>
+          <td class="value">Grade III-B</td>
+        </tr>
+        <tr>
+          <td class="label">NPWP</td><td class="colon">:</td>
+          <td class="value">02.345.678.9-013.456</td>
+          <td class="label">No. Rekening</td><td class="colon">:</td>
+          <td class="value">Mandiri 1234-5678-9012</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- ===== PERIOD ===== -->
+    <div class="period-bar">Periode Gaji : Juli 2026</div>
+
+    <!-- ===== BENEFITS ===== -->
+    <div class="dual-panels">
+      <div class="panel-box benefits-panel">
+        <div class="panel-title">+ Pendapatan / Benefits</div>
+        <table class="data-table benefits-table">
+        <thead>
+          <tr>
+            <th style="width:30%">Komponen</th>
+            <th>Keterangan</th>
+            <th style="width:20%">Jumlah (Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Gaji Pokok</td>
+            <td class="col-note">Golongan III-B</td>
+            <td>5.200.000</td>
+          </tr>
+          <tr>
+            <td>Tunjangan Jabatan</td>
+            <td class="col-note">Operator Senior</td>
+            <td>800.000</td>
+          </tr>
+          <tr>
+            <td>Uang Makan</td>
+            <td class="col-note">26 hari × Rp30.000</td>
+            <td>780.000</td>
+          </tr>
+          <tr>
+            <td>Uang Transport</td>
+            <td class="col-note">26 hari × Rp25.000</td>
+            <td>650.000</td>
+          </tr>
+          <tr>
+            <td>Uang Lembur</td>
+            <td class="col-note">32 jam × Rp45.000</td>
+            <td>1.440.000</td>
+          </tr>
+          <tr>
+            <td>Tunjangan Shift Malam</td>
+            <td class="col-note">8 shift × Rp75.000</td>
+            <td>600.000</td>
+          </tr>
+          <tr>
+            <td>Tunjangan Kesehatan</td>
+            <td class="col-note">BPJS Perusahaan</td>
+            <td>350.000</td>
+          </tr>
+          <tr>
+            <td>Uang Kehadiran (Absensi)</td>
+            <td class="col-note">Hadir penuh 26 hari</td>
+            <td>300.000</td>
+          </tr>
+          <tr class="subtotal-row">
+            <td colspan="2"><strong>TOTAL PENDAPATAN</strong></td>
+            <td><strong>10.120.000</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      </div><!-- .benefits-panel -->
+      <div class="panel-box penalties-panel">
+        <div class="panel-title">− Potongan / Penalties</div>
+        <table class="data-table penalties-table">
+        <thead>
+          <tr>
+            <th style="width:30%">Komponen</th>
+            <th>Keterangan</th>
+            <th style="width:20%">Jumlah (Rp)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>BPJS Kesehatan</td>
+            <td class="col-note">1% dari gaji pokok</td>
+            <td>52.000</td>
+          </tr>
+          <tr>
+            <td>BPJS Ketenagakerjaan — JKK</td>
+            <td class="col-note">0,24%</td>
+            <td>12.480</td>
+          </tr>
+          <tr>
+            <td>BPJS Ketenagakerjaan — JKM</td>
+            <td class="col-note">0,30%</td>
+            <td>15.600</td>
+          </tr>
+          <tr>
+            <td>BPJS Ketenagakerjaan — JHT</td>
+            <td class="col-note">2% dari gaji pokok</td>
+            <td>104.000</td>
+          </tr>
+          <tr>
+            <td>BPJS Ketenagakerjaan — JP</td>
+            <td class="col-note">1% dari gaji pokok</td>
+            <td>52.000</td>
+          </tr>
+          <tr>
+            <td>Koperasi Simpan Pinjam</td>
+            <td class="col-note">Angsuran bulanan</td>
+            <td>250.000</td>
+          </tr>
+          <tr>
+            <td>PPh 21</td>
+            <td class="col-note">Pajak Penghasilan</td>
+            <td>185.000</td>
+          </tr>
+          <tr>
+            <td>Keterlambatan</td>
+            <td class="col-note">1× terlambat @Rp25.000</td>
+            <td>25.000</td>
+          </tr>
+          <tr>
+            <td>Kerusakan Barang Produksi</td>
+            <td class="col-note">Cacat 3 unit komponen</td>
+            <td>150.000</td>
+          </tr>
+          <tr class="subtotal-row">
+            <td colspan="2"><strong>TOTAL POTONGAN</strong></td>
+            <td><strong>846.080</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      </div><!-- .penalties-panel -->
+    </div><!-- .dual-panels -->
+
+    <!-- ===== SUMMARY STRIP ===== -->
+    <div class="summary-strip">
+      <div class="s-income">
+        <div class="s-label">Total Pendapatan</div>
+        <div class="s-value">Rp 10.120.000</div>
+      </div>
+      <div class="s-deduction">
+        <div class="s-label">Total Potongan</div>
+        <div class="s-value">Rp 846.080</div>
+      </div>
+      <div class="s-net">
+        <div class="s-label">Take Home Pay</div>
+        <div class="s-value">Rp 9.273.920</div>
+      </div>
+    </div>
+
+    <div class="amount-words">
+      <strong>Terbilang:</strong> Sembilan Juta Dua Ratus Tujuh Puluh Tiga Sembilan Ratus Dua Puluh Rupiah
+    </div>
+
+    <!-- ===== SIGNATURE ===== -->
+    <div class="slip-footer">
+      <div class="sig-block">
+        <div class="sig-place-date">Bekasi, 31 Juli 2026</div>
+        <div class="sig-title">Disetujui oleh,</div>
+        <hr class="sig-line">
+        <div class="sig-name">H. Agus Widodo</div>
+        <div class="sig-nip">Kepala Bagian Personalia</div>
+      </div>
+      <div class="stamp-area">[STAMPEL]</div>
+      <div class="sig-block">
+        <div class="sig-place-date">&nbsp;</div>
+        <div class="sig-title">Diterima oleh,</div>
+        <hr class="sig-line">
+        <div class="sig-name">Budi Santoso</div>
+        <div class="sig-nip">NIP: BMF-2022-00891</div>
+      </div>
+    </div>
+
+    <hr class="tear-line">
+
+    <div class="receipt-copy">
+      <div class="receipt-header">Tanda Terima Slip Gaji — Salinan Karyawan</div>
+      <table>
+        <tr>
+          <td class="r-label">Nama Karyawan</td><td>: Budi Santoso</td>
+          <td class="r-label">Periode</td><td>: Juli 2026</td>
+        </tr>
+        <tr>
+          <td class="r-label">Gaji Bersih</td><td>: Rp 9.273.920</td>
+          <td class="r-label">Tanggal Transfer</td><td>: 31 Juli 2026</td>
+        </tr>
+      </table>
+      <div class="sig-ack">
+        Tanda tangan penerima:
+        <div class="sig-ack-line"></div>
+      </div>
+    </div>
+
+    <div class="legal-footer">
+      Dokumen ini diterbitkan oleh Bagian Personalia CV Berkah Manufaktur.<br>
+      Berlaku sebagai bukti pembayaran resmi. Hubungi HRD untuk pertanyaan.
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

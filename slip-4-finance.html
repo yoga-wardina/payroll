@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Slip Gaji — PT Finance Sejahtera</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Finance/Banking — Muted Charcoal */
+    :root {
+      --ink: #1a1a1a;
+      --ink-light: #2c2c2c;
+      --ink-muted: #555;
+      --border-dark: #1a1a1a;
+      --border-mid: #888;
+      --border-light: #bbb;
+      --bg: #f0f0ee;
+      --paper: #fafaf6;
+      --blue: #2c3e50;
+      --green: #4a6b3f;
+      --green-light: #f1f4ed;
+      --red: #8a3a3a;
+      --red-light: #f5ecec;
+    }
+
+    body {
+      font-family: 'Book Antiqua', 'Palatino Linotype', 'Georgia', serif;
+      background: #edeae2;
+    }
+
+    .slip {
+      border: 3px double #1a1a1a;
+      border-radius: 0;
+      box-shadow: 0 6px 30px rgba(0,0,0,0.1), inset 0 0 0 1px #888;
+    }
+    .slip::before {
+      border: 1px solid #888;
+      top: 7px; left: 7px; right: 7px; bottom: 7px;
+    }
+
+    .slip-header {
+      background: #2c2c2c;
+      color: #fff;
+      padding: 30px 40px 20px;
+      border-bottom: 3px double #888;
+    }
+    .company-crest { font-size: 2.8rem; }
+    .company-name { color: #e8e6e0; font-size: 1.55rem; font-weight: 700; letter-spacing: 2px; }
+    .company-addr { color: #cfcfcf; font-size: 0.76rem; }
+    .divider::before, .divider::after { background: #888; height: 2px; }
+    .divider .diamond { background: #888; width: 10px; height: 10px; }
+    .doc-title { color: #e8e6e0; border-color: #888; font-size: 1.1rem; letter-spacing: 4px; }
+    .doc-ref { color: #cfcfcf; font-family: 'Book Antiqua', serif; letter-spacing: 1px; }
+
+    .employee-info {
+      border-bottom: 2px solid #1a1a1a;
+    }
+    .info-table .label { color: #1a1a1a; }
+    .info-table .value { color: #1a1a1a; }
+
+    .period-bar {
+      background: #3a3a3a;
+      font-size: 0.95rem;
+      letter-spacing: 4px;
+      font-weight: 700;
+    }
+
+    .section-heading {
+      font-size: 0.88rem;
+      letter-spacing: 2.5px;
+      font-weight: 700;
+    }
+    .section-heading.benefits { color: #4a6b3f; border-bottom: 2px solid #4a6b3f; }
+    .section-heading.benefits .badge { background: #4a6b3f; }
+    .section-heading.penalties { color: #8a3a3a; border-bottom: 2px solid #8a3a3a; }
+    .section-heading.penalties .badge { background: #8a3a3a; }
+
+    .data-table {
+      border: 2px solid #888;
+    }
+    .data-table thead th {
+      background: #2c2c2c;
+      color: #e8e6e0;
+      font-size: 0.73rem;
+      letter-spacing: 1.5px;
+      border-color: #555;
+      padding: 9px 8px;
+    }
+    .data-table tbody td {
+      border-color: #ccc;
+      font-size: 0.9rem;
+    }
+    .data-table .col-note { color: #555; }
+    .data-table tbody tr:nth-child(even) td { background: #f5f4ef; }
+    .data-table .subtotal-row td { background: #ebe9e3 !important; border-top: 2px solid #1a1a1a; }
+    .data-table.benefits-table .subtotal-row td:last-child { color: #4a6b3f; }
+    .data-table.penalties-table .subtotal-row td:last-child { color: #8a3a3a; }
+    .data-table.benefits-table tbody td:last-child { color: #4a6b3f; }
+    .data-table.penalties-table tbody td:last-child { color: #8a3a3a; }
+
+    .grand-summary {
+      border: 3px double #1a1a1a;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .grand-summary td { border-color: #888; }
+    .grand-summary .label-col { color: #1a1a1a; font-weight: 700; }
+    .grand-summary .row-income .value-col { color: #4a6b3f; }
+    .grand-summary .row-deduction .value-col { color: #8a3a3a; }
+    .grand-summary .row-net td {
+      background: #2c2c2c !important;
+      color: #e8e6e0 !important;
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+    }
+    .grand-summary .row-net .value-col { color: #e8e6e0 !important; }
+
+    .amount-words { border-color: #888; border-style: solid; background: #f5f4ef; }
+
+    .sig-block .sig-title { color: #1a1a1a; letter-spacing: 1px; }
+    .sig-block .sig-line { border-color: #1a1a1a; border-width: 2px; }
+    .sig-block .sig-name { color: #1a1a1a; }
+    .stamp-area { border-color: #888; color: #888; }
+    .tear-line { border-color: #888; }
+    .tear-line::after { color: #888; }
+
+    .back-link:hover { color: #1a1a1a; }
+    .print-btn { background: #2c2c2c; letter-spacing: 1px; }
+    .print-btn:hover { background: #555; color: #fff; }
+
+    /* === Landscape A4 Layout (Finance) === */
+    body {
+      background: #edeae2;
+      min-height: 100vh;
+      overflow-x: auto;
+    }
+    .page-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      padding: 20px;
+      min-height: 100vh;
+    }
+    .slip {
+      width: 1400px;
+      max-width: none;
+      flex-shrink: 0;
+    }
+    .slip-header {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: center;
+      gap: 24px;
+      padding: 24px 40px;
+      text-align: left;
+    }
+    .slip-header::after {
+      display: none;
+    }
+    .company-crest { font-size: 3.5rem; }
+    .company-name { text-align: left; }
+    .company-addr { text-align: left; }
+    .header-right {
+      text-align: right;
+      border-left: 2px solid #888;
+      padding-left: 20px;
+    }
+    .header-right .doc-title-landscape {
+      font-size: 1.2rem;
+      color: #e8e6e0;
+      letter-spacing: 4px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .header-right .doc-ref {
+      font-size: 0.78rem;
+      color: #cfcfcf;
+      font-family: 'Courier New', monospace;
+    }
+    .divider { display: none; }
+    .employee-info {
+      padding: 20px 40px;
+      border-bottom: 2px solid #1a1a1a;
+    }
+    .info-table {
+      width: 100%;
+      table-layout: fixed;
+    }
+    .info-table td.label {
+      font-size: 0.65rem;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      padding: 2px 8px 2px 0;
+      width: 14%;
+    }
+    .info-table td.colon { display: none; }
+    .info-table td.value {
+      font-size: 0.9rem;
+      color: #1a1a1a;
+      font-weight: 700;
+      padding: 2px 14px 2px 0;
+      border-right: 1px solid #ccc;
+      width: 19%;
+    }
+    .info-table td.value:last-child { border-right: none; }
+    .info-table tr {
+      display: flex;
+      align-items: baseline;
+    }
+    .period-bar {
+      text-align: center;
+      letter-spacing: 6px;
+      font-size: 1rem;
+      padding: 14px;
+    }
+    .landscape-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 24px 40px;
+    }
+    .landscape-grid .panel {
+      border: 2px solid #1a1a1a;
+      background: #fafaf6;
+      border-radius: 4px;
+    }
+    .landscape-grid .panel.benefits-panel {
+      border-top: 4px solid #4a6b3f;
+    }
+    .landscape-grid .panel.penalties-panel {
+      border-top: 4px solid #8a3a3a;
+    }
+    .landscape-grid .panel-title {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #fff;
+    }
+    .landscape-grid .panel.benefits-panel .panel-title { background: #4a6b3f; }
+    .landscape-grid .panel.penalties-panel .panel-title { background: #8a3a3a; }
+    .landscape-grid .panel-total {
+      padding: 10px 16px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      border-top: 2px solid;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .landscape-grid .panel.benefits-panel .panel-total {
+      border-color: #4a6b3f;
+      background: #f1f4ed;
+      color: #4a6b3f;
+    }
+    .landscape-grid .panel.penalties-panel .panel-total {
+      border-color: #8a3a3a;
+      background: #f5ecec;
+      color: #8a3a3a;
+    }
+    .landscape-grid .data-table {
+      border: none;
+      width: 100%;
+    }
+    .landscape-grid .data-table thead th {
+      background: #2c2c2c;
+      color: #e8e6e0;
+      font-size: 0.7rem;
+      letter-spacing: 1px;
+      border-color: #555;
+      padding: 7px 8px;
+    }
+    .landscape-grid .panel.benefits-panel .data-table thead th { background: #4a6b3f; color: #fff; border-color: #2f4a26; }
+    .landscape-grid .panel.penalties-panel .data-table thead th { background: #8a3a3a; color: #fff; border-color: #5a2424; }
+    .landscape-grid .data-table tbody td {
+      border-color: #ccc;
+      padding: 5px 8px;
+      font-size: 0.85rem;
+    }
+    .landscape-grid .data-table .col-note { font-size: 0.72rem; color: #555; }
+    .landscape-grid .data-table .subtotal-row { display: none; }
+    .landscape-grid .panel.benefits-panel .data-table tbody td:last-child { color: #4a6b3f; font-weight: 700; }
+    .landscape-grid .panel.penalties-panel .data-table tbody td:last-child { color: #8a3a3a; font-weight: 700; }
+    .grand-summary {
+      margin: 0 40px 20px;
+      border: 3px double #1a1a1a;
+      background: #fafaf6;
+    }
+    .grand-summary table {
+      width: 100%;
+      table-layout: fixed;
+    }
+    .grand-summary td {
+      padding: 14px 24px;
+      font-size: 0.95rem;
+    }
+    .grand-summary .row-income .label-col { color: #4a6b3f; font-weight: 700; width: 33%; }
+    .grand-summary .row-income .value-col { color: #4a6b3f; font-weight: 800; text-align: right; width: 67%; }
+    .grand-summary .row-deduction .label-col { color: #8a3a3a; font-weight: 700; width: 33%; }
+    .grand-summary .row-deduction .value-col { color: #8a3a3a; font-weight: 800; text-align: right; width: 67%; }
+    .grand-summary .row-net td {
+      background: #2c2c2c !important;
+      color: #e8e6e0 !important;
+      text-align: center !important;
+      font-size: 1.15rem;
+      letter-spacing: 2px;
+    }
+    .amount-words {
+      margin: 0 40px 16px;
+      padding: 12px 16px;
+      border: 1px solid #888;
+      background: #f5f4ef;
+      font-style: italic;
+    }
+    .slip-footer {
+      padding: 20px 40px 24px;
+      justify-content: space-between;
+    }
+    .stamp-area {
+      border: 2px solid #888;
+      width: 110px;
+    }
+    .receipt-copy {
+      margin: 0 40px 16px;
+      padding: 14px 20px;
+    }
+    .legal-footer {
+      padding: 10px 40px;
+    }
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 10mm;
+      }
+      .page-wrapper { padding: 0; }
+      .slip { width: 100%; min-height: 0; }
+    }
+    @media (max-width: 900px) {
+      .landscape-grid { grid-template-columns: 1fr; }
+      .info-table tr { flex-wrap: wrap; }
+      .info-table td.value { border-right: none; min-width: 33%; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="page-wrapper">
+
+  <div style="margin-bottom: 16px;">
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Kembali ke Koleksi
+    </a>
+    <button class="print-btn" onclick="window.print()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+      Cetak Slip
+    </button>
+  </div>
+
+  <div class="slip">
+
+    <!-- ===== HEADER (landscape 3-col) ===== -->
+    <div class="slip-header">
+      <div class="company-crest">🏦</div>
+      <div class="header-center">
+        <div class="company-name">PT Finance Sejahtera</div>
+        <div class="company-addr">
+          Menara Finance Lt. 28, Jl. Jend. Gatot Subroto Kav. 58, Jakarta Selatan 12950<br>
+          Telp: (021) 5299-8000 · Email: hrd@financesejahtera.co.id · NPWP: 04.567.890.1-015.000
+        </div>
+      </div>
+      <div class="header-right">
+        <div class="doc-title-landscape">SLIP GAJI</div>
+        <div class="doc-ref">No: SG/FS/2026/VII/00342</div>
+      </div>
+    </div>
+
+    <!-- ===== EMPLOYEE INFO (landscape flat rows) ===== -->
+    <div class="employee-info">
+      <table class="info-table">
+        <tr>
+          <td class="label">Nama Lengkap</td>
+          <td class="value">Raden Mas Aditya Prabowo, S.E.</td>
+          <td class="label">NIP</td>
+          <td class="value">FS-2019-00342</td>
+          <td class="label">Status</td>
+          <td class="value">Tetap (PKWTT)</td>
+          <td class="label">Golongan</td>
+          <td class="value">Grade 8 — AVP</td>
+        </tr>
+        <tr>
+          <td class="label">Jabatan</td>
+          <td class="value">Assistant Vice President</td>
+          <td class="label">Departemen</td>
+          <td class="value">Corporate Banking Div.</td>
+          <td class="label">NPWP</td>
+          <td class="value">04.567.890.1-015.678</td>
+          <td class="label">No. Rekening</td>
+          <td class="value">BCA 5555-6666-7777</td>
+        </tr>
+      </table>
+    </div>
+
+    <!-- ===== PERIOD ===== -->
+    <div class="period-bar">Periode Gaji : Juli 2026</div>
+
+    <!-- ===== BENEFITS & PENALTIES (landscape 2-col) ===== -->
+    <div class="landscape-grid">
+      <div class="panel benefits-panel">
+        <div class="panel-title">+ Pendapatan / Benefits</div>
+        <table class="data-table benefits-table">
+          <thead>
+            <tr>
+              <th style="width:30%">Komponen</th>
+              <th>Keterangan</th>
+              <th style="width:20%">Jumlah (Rp)</th>
+            </tr>
+          </thead>
+        <tbody>
+          <tr>
+            <td>Gaji Pokok</td>
+            <td class="col-note">Grade 8 — AVP</td>
+            <td>18.000.000</td>
+          </tr>
+          <tr>
+            <td>Tunjangan Jabatan</td>
+            <td class="col-note">Asisten Vice President</td>
+            <td>5.000.000</td>
+          </tr>
+          <tr>
+            <td>Tunjangan Fungsional</td>
+            <td class="col-note">Sertifikasi PPA & CFA</td>
+            <td>2.000.000</td>
+          </tr>
+          <tr>
+            <td>Tunjangan Kesehatan Premium</td>
+            <td class="col-note">Asuransi Keluarga (suami/istri + 2 anak)</td>
+            <td>1.500.000</td>
+          </tr>
+          <tr>
+            <td>Tunjangan Transport</td>
+            <td class="col-note">Uang bensin + tol bulanan</td>
+            <td>2.500.000</td>
+          </tr>
+          <tr>
+            <td>Tunjangan Komunikasi</td>
+            <td class="col-note">Pulsa + data bulanan</td>
+            <td>500.000</td>
+          </tr>
+          <tr>
+            <td>Bonus Kinerja (Insentif)</td>
+            <td class="col-note">Pencapaian target Q2 — 115%</td>
+            <td>8.000.000</td>
+          </tr>
+          <tr>
+            <td>Uang Lembur</td>
+            <td class="col-note">12 jam × Rp150.000</td>
+            <td>1.800.000</td>
+          </tr>
+          <tr class="subtotal-row">
+            <td colspan="2"><strong>TOTAL PENDAPATAN</strong></td>
+            <td><strong>39.300.000</strong></td>
+          </tr>
+        </tbody>
+        </table>
+        <div class="panel-total">
+          <span>TOTAL PENDAPATAN</span>
+          <span>Rp 39.300.000</span>
+        </div>
+      </div><!-- .benefits-panel -->
+
+      <div class="panel penalties-panel">
+        <div class="panel-title">− Potongan / Penalties</div>
+        <table class="data-table penalties-table">
+          <thead>
+            <tr>
+              <th style="width:30%">Komponen</th>
+              <th>Keterangan</th>
+              <th style="width:20%">Jumlah (Rp)</th>
+            </tr>
+          </thead>
+        <tbody>
+          <tr>
+            <td>BPJS Kesehatan</td>
+            <td class="col-note">1% dari gaji (max upah)</td>
+            <td>180.000</td>
+          </tr>
+          <tr>
+            <td>BPJS Ketenagakerjaan — JKK</td>
+            <td class="col-note">0,24%</td>
+            <td>43.200</td>
+          </tr>
+          <tr>
+            <td>BPJS Ketenagakerjaan — JKM</td>
+            <td class="col-note">0,30%</td>
+            <td>54.000</td>
+          </tr>
+          <tr>
+            <td>BPJS Ketenagakerjaan — JHT</td>
+            <td class="col-note">2% dari gaji pokok</td>
+            <td>360.000</td>
+          </tr>
+          <tr>
+            <td>BPJS Ketenagakerjaan — JP</td>
+            <td class="col-note">1% dari gaji pokok</td>
+            <td>180.000</td>
+          </tr>
+          <tr>
+            <td>Iuran Dana Pensiun (DPLK)</td>
+            <td class="col-note">Program pensiun wajib</td>
+            <td>500.000</td>
+          </tr>
+          <tr>
+            <td>PPh 21</td>
+            <td class="col-note">Pajak Penghasilan</td>
+            <td>4.850.000</td>
+          </tr>
+          <tr>
+            <td>Potongan Target Tidak Tercapai</td>
+            <td class="col-note">Divisi lain — shortfall 8%</td>
+            <td>750.000</td>
+          </tr>
+          <tr>
+            <td>Pinjaman Karyawan (KTA Staff)</td>
+            <td class="col-note">Angsuran ke-8 dari 12</td>
+            <td>1.200.000</td>
+          </tr>
+          <tr class="subtotal-row">
+            <td colspan="2"><strong>TOTAL POTONGAN</strong></td>
+            <td><strong>8.117.200</strong></td>
+          </tr>
+        </tbody>
+        </table>
+        <div class="panel-total">
+          <span>TOTAL POTONGAN</span>
+          <span>Rp 8.117.200</span>
+        </div>
+      </div><!-- .penalties-panel -->
+    </div><!-- .landscape-grid -->
+
+    <!-- ===== GRAND SUMMARY ===== -->
+    <div class="grand-summary">
+      <table>
+        <tr class="row-income">
+          <td class="label-col">Total Pendapatan</td>
+          <td class="value-col">Rp 39.300.000</td>
+        </tr>
+        <tr class="row-deduction">
+          <td class="label-col">Total Potongan</td>
+          <td class="value-col">Rp 8.117.200</td>
+        </tr>
+        <tr class="row-net">
+          <td class="label-col">GAJI BERSIH (TAKE HOME PAY)</td>
+          <td class="value-col">Rp 31.182.800</td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="amount-words">
+      <strong>Terbilang:</strong> Tiga Puluh Satu Juta Seratus Delapan Puluh Dua Sembilan Ratus Rupiah
+    </div>
+
+    <!-- ===== SIGNATURE ===== -->
+    <div class="slip-footer">
+      <div class="sig-block">
+        <div class="sig-place-date">Jakarta, 31 Juli 2026</div>
+        <div class="sig-title">Disetujui oleh,</div>
+        <hr class="sig-line">
+        <div class="sig-name">Dr. Ir. Hendra Kusuma, M.M.</div>
+        <div class="sig-nip">Direktur Sumber Daya Manusia</div>
+      </div>
+      <div class="stamp-area">[STAMPEL]</div>
+      <div class="sig-block">
+        <div class="sig-place-date">&nbsp;</div>
+        <div class="sig-title">Diterima oleh,</div>
+        <hr class="sig-line">
+        <div class="sig-name">Raden Mas Aditya Prabowo, S.E.</div>
+        <div class="sig-nip">NIP: FS-2019-00342</div>
+      </div>
+    </div>
+
+    <hr class="tear-line">
+
+    <div class="receipt-copy">
+      <div class="receipt-header">Tanda Terima Slip Gaji — Salinan Karyawan</div>
+      <table>
+        <tr>
+          <td class="r-label">Nama Karyawan</td><td>: Raden Mas Aditya Prabowo, S.E.</td>
+          <td class="r-label">Periode</td><td>: Juli 2026</td>
+        </tr>
+        <tr>
+          <td class="r-label">Gaji Bersih</td><td>: Rp 31.182.800</td>
+          <td class="r-label">Tanggal Transfer</td><td>: 31 Juli 2026</td>
+        </tr>
+      </table>
+      <div class="sig-ack">
+        Tanda tangan penerima:
+        <div class="sig-ack-line"></div>
+      </div>
+    </div>
+
+    <div class="legal-footer">
+      Dokumen ini bersifat rahasia dan hanya untuk keperluan internal karyawan.<br>
+      Pelanggaran kerahasiaan dapat dikenakan sanksi sesuai kebijakan perusahaan.
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

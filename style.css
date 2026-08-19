@@ -1,0 +1,685 @@
+/* ============================================
+   SLIP GAJI INDONESIA — Formal Document Style
+   ============================================ */
+
+/* ---------- Reset & Base ---------- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --ink: #1a1a1a;
+  --ink-light: #444;
+  --ink-muted: #666;
+  --border-dark: #1a1a1a;
+  --border-mid: #555;
+  --border-light: #999;
+  --bg: #f5f5f0;
+  --paper: #fff;
+  --red: #c62828;
+  --red-light: #ffebee;
+  --green: #2e7d32;
+  --green-light: #e8f5e9;
+  --blue: #1565c0;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  font-family: 'Times New Roman', 'Georgia', 'Noto Serif', serif;
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--blue);
+  text-decoration: underline;
+}
+a:hover { color: #0d47a1; }
+
+/* ---------- Page Wrapper ---------- */
+.page-wrapper {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+
+/* ---------- Back Link ---------- */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+.back-link:hover { color: var(--blue); }
+.back-link svg { width: 16px; height: 16px; }
+
+/* ---------- Print Button ---------- */
+.print-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  margin-left: 16px;
+  padding: 8px 18px;
+  background: var(--ink);
+  color: #fff;
+  border: none;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.print-btn:hover { background: #333; }
+.print-btn svg { width: 15px; height: 15px; }
+@media print { .print-btn, .back-link { display: none !important; } }
+
+/* =============================================
+   SLIP CONTAINER — Formal Document
+   ============================================= */
+.slip {
+  background: var(--paper);
+  border: 3px double var(--border-dark);
+  padding: 0;
+  position: relative;
+}
+
+/* Outer frame line */
+.slip::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  bottom: 6px;
+  border: 1px solid var(--border-light);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ---------- HEADER ---------- */
+.slip-header {
+  text-align: center;
+  padding: 28px 40px 16px;
+  border-bottom: 3px double var(--border-dark);
+  position: relative;
+}
+
+.company-crest {
+  font-size: 2.8rem;
+  margin-bottom: 4px;
+  line-height: 1;
+}
+
+.company-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.company-addr {
+  font-size: 0.78rem;
+  color: var(--ink-light);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+/* Horizontal rule with diamond */
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+}
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-dark);
+}
+.divider .diamond {
+  width: 8px;
+  height: 8px;
+  background: var(--ink);
+  transform: rotate(45deg);
+  flex-shrink: 0;
+}
+
+/* Document title */
+.doc-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--ink);
+  padding: 6px 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  display: inline-block;
+  margin: 8px 0 4px;
+}
+
+/* Document reference number */
+.doc-ref {
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  margin-top: 6px;
+  letter-spacing: 0.3px;
+}
+
+/* ---------- EMPLOYEE INFO TABLE ---------- */
+.employee-info {
+  margin: 0 24px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border-mid);
+}
+
+.info-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.info-table td {
+  padding: 4px 6px;
+  vertical-align: top;
+}
+
+.info-table .label {
+  width: 160px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.info-table .colon {
+  width: 12px;
+  text-align: center;
+}
+
+.info-table .value {
+  color: var(--ink);
+}
+
+/* ---------- PERIOD ---------- */
+.period-bar {
+  text-align: center;
+  padding: 10px 24px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  background: var(--ink);
+  color: #fff;
+  margin: 0;
+}
+
+/* ---------- SECTION ---------- */
+.slip-section {
+  padding: 0 24px;
+}
+
+/* Section heading */
+.section-heading {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 14px 0 8px;
+  border-bottom: 2px solid var(--ink);
+  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.section-heading.benefits {
+  color: var(--green);
+  border-bottom-color: var(--green);
+}
+
+.section-heading.penalties {
+  color: var(--red);
+  border-bottom-color: var(--red);
+}
+
+.section-heading .badge {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.section-heading.benefits .badge { background: var(--green); }
+.section-heading.penalties .badge { background: var(--red); }
+
+/* ---------- DATA TABLE (formal bordered) ---------- */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  border: 1px solid var(--border-mid);
+  margin-bottom: 0;
+}
+
+.data-table thead th {
+  background: #f0f0ec;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-size: 0.78rem;
+  padding: 7px 8px;
+  border: 1px solid var(--border-mid);
+  text-align: left;
+  color: var(--ink);
+}
+
+.data-table thead th:last-child {
+  text-align: right;
+}
+
+.data-table tbody td {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  vertical-align: top;
+  color: var(--ink);
+}
+
+.data-table tbody td:last-child {
+  text-align: right;
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-weight: 600;
+  white-space: nowrap;
+  font-size: 0.88rem;
+}
+
+.data-table .col-note {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  font-style: italic;
+}
+
+/* Alternating row tint */
+.data-table tbody tr:nth-child(even) td {
+  background: #fafaf6;
+}
+
+/* Subtotal row */
+.data-table .subtotal-row td {
+  background: #f0f0ec !important;
+  font-weight: 700;
+  border-top: 2px solid var(--border-dark);
+  padding: 8px;
+}
+
+.data-table.benefits-table .subtotal-row td:last-child { color: var(--green); }
+.data-table.penalties-table .subtotal-row td:last-child { color: var(--red); }
+
+/* Benefit amounts green */
+.data-table.benefits-table tbody td:last-child { color: var(--green); }
+/* Penalty amounts red */
+.data-table.penalties-table tbody td:last-child { color: var(--red); }
+
+/* ---------- GRAND SUMMARY ---------- */
+.grand-summary {
+  margin: 16px 24px 0;
+  border: 2px solid var(--ink);
+}
+
+.grand-summary table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.grand-summary td {
+  padding: 10px 12px;
+  border: 1px solid var(--border-mid);
+  font-size: 0.92rem;
+}
+
+.grand-summary .label-col {
+  font-weight: 600;
+  color: var(--ink-light);
+  width: 55%;
+}
+
+.grand-summary .value-col {
+  text-align: right;
+  font-family: 'Courier New', 'Consolas', monospace;
+  font-weight: 700;
+}
+
+.grand-summary .row-income .value-col { color: var(--green); }
+.grand-summary .row-deduction .value-col { color: var(--red); }
+
+.grand-summary .row-net td {
+  background: var(--ink) !important;
+  color: #fff !important;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 12px;
+}
+
+.grand-summary .row-net .value-col {
+  color: #fff !important;
+  font-size: 1.1rem;
+}
+
+/* Amount in words */
+.amount-words {
+  margin: 0 24px;
+  padding: 10px 12px;
+  background: #f5f5f0;
+  border: 1px dashed var(--border-light);
+  font-size: 0.82rem;
+  color: var(--ink-light);
+  font-style: italic;
+}
+
+.amount-words strong {
+  font-style: normal;
+  color: var(--ink);
+}
+
+/* ---------- SIGNATURE FOOTER ---------- */
+.slip-footer {
+  padding: 20px 24px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-top: 1px solid var(--border-mid);
+}
+
+.sig-block {
+  text-align: center;
+  min-width: 180px;
+}
+
+.sig-block .sig-place-date {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  margin-bottom: 40px;
+}
+
+.sig-block .sig-title {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.sig-block .sig-line {
+  width: 160px;
+  border: none;
+  border-top: 1px solid var(--ink);
+  margin: 40px auto 6px;
+}
+
+.sig-block .sig-name {
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--ink);
+}
+
+.sig-block .sig-nip {
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+  font-family: 'Courier New', monospace;
+}
+
+/* Stamp area */
+.stamp-area {
+  position: relative;
+  width: 100px;
+  height: 80px;
+  border: 1px dashed var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  color: var(--border-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Receipt tear line */
+.tear-line {
+  border: none;
+  border-top: 2px dashed var(--border-light);
+  margin: 0 24px;
+  position: relative;
+}
+
+.tear-line::after {
+  content: '✂';
+  position: absolute;
+  right: 24px;
+  top: -10px;
+  font-size: 1rem;
+  color: var(--border-light);
+}
+
+/* Employee receipt copy */
+.receipt-copy {
+  margin: 0 24px;
+  padding: 16px 0 8px;
+  font-size: 0.78rem;
+  color: var(--ink-muted);
+}
+
+.receipt-copy .receipt-header {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.75rem;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.receipt-copy table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.receipt-copy td {
+  padding: 3px 0;
+  vertical-align: top;
+}
+
+.receipt-copy .r-label {
+  width: 140px;
+  font-weight: 600;
+}
+
+.receipt-copy .sig-ack {
+  text-align: center;
+  margin-top: 20px;
+  font-weight: 600;
+}
+
+.receipt-copy .sig-ack-line {
+  width: 140px;
+  border-top: 1px solid var(--ink);
+  margin: 30px auto 4px;
+}
+
+/* ---------- LEGAL FOOTER ---------- */
+.legal-footer {
+  padding: 12px 24px 16px;
+  font-size: 0.7rem;
+  color: var(--ink-muted);
+  border-top: 1px solid #ccc;
+  text-align: center;
+  line-height: 1.6;
+}
+
+/* =============================================
+   HUB PAGE STYLES
+   ============================================= */
+.hub-hero {
+  text-align: center;
+  padding: 36px 20px 24px;
+}
+
+.hub-hero h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--ink);
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.hub-hero p {
+  color: var(--ink-muted);
+  font-size: 0.92rem;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.template-card {
+  background: var(--paper);
+  border: 1px solid var(--border-mid);
+  overflow: hidden;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.template-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+  color: inherit;
+}
+
+.card-accent {
+  height: 4px;
+  width: 100%;
+}
+
+.card-body {
+  padding: 18px 20px;
+}
+
+.card-body .card-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+  font-family: 'Courier New', monospace;
+}
+
+.card-body h3 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 3px;
+  color: var(--ink);
+}
+
+.card-body .card-type {
+  font-size: 0.72rem;
+  color: var(--ink-muted);
+  font-weight: 600;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.card-body .card-desc {
+  font-size: 0.82rem;
+  color: var(--ink-light);
+  line-height: 1.5;
+}
+
+.card-body .card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 12px;
+}
+
+.card-body .tag {
+  font-size: 0.65rem;
+  padding: 2px 8px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.tag.benefit-tag { background: var(--green-light); color: var(--green); border: 1px solid #a5d6a7; }
+.tag.penalty-tag { background: var(--red-light); color: var(--red); border: 1px solid #ef9a9a; }
+
+/* Card accent colors */
+.accent-tech    { background: #1565c0; }
+.accent-mfg     { background: #bf360c; }
+.accent-retail  { background: #00695c; }
+.accent-finance { background: #1a237e; }
+.accent-gov     { background: #2e7d32; }
+
+.num-tech    { background: #1565c0; }
+.num-mfg     { background: #bf360c; }
+.num-retail  { background: #00695c; }
+.num-finance { background: #1a237e; }
+.num-gov     { background: #2e7d32; }
+
+/* Hub footer */
+.hub-footer {
+  text-align: center;
+  padding: 32px 20px 16px;
+  font-size: 0.75rem;
+  color: var(--ink-muted);
+  border-top: 1px solid #ccc;
+  margin-top: 24px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 640px) {
+  .info-table .label { width: 120px; }
+  .slip-footer { flex-direction: column; gap: 20px; align-items: center; }
+  .hub-hero h1 { font-size: 1.4rem; }
+  .cards-grid { grid-template-columns: 1fr; }
+}
+
+/* ---------- Print ---------- */
+@media print {
+  body { background: #fff; }
+  .page-wrapper { padding: 0; max-width: 100%; }
+  .slip { border: 3px double #000; }
+  .period-bar { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .grand-summary .row-net td { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .data-table thead th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
